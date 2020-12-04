@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000", // <- location of the client
+    origin: process.env.CLIENT_ADDRESS || "http://localhost:3000", // <- location of the client
     credentials: true,
   })
 );
