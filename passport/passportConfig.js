@@ -7,18 +7,30 @@ module.exports = function (passport) {
     new localStrategy(
       { usernameField: "email" },
       (username, password, done) => {
-        User.findOne({ email: username }, (err, user) => {
-          if (err) throw err;
-          if (!user) return done("Email no exist", false);
-          bcrypt.compare(password, user.password, (err, result) => {
+        // Strategy for any user in the database
+        // User.findOne({ email: username }, (err, user) => {
+        //   if (err) throw err;
+        //   if (!user) return done("Email no exist", false);
+        //   bcrypt.compare(password, user.password, (err, result) => {
+        //     if (err) throw err;
+        //     if (result === true) {
+        //       return done(null, user);
+        //     } else {
+        //       return done("Wrong Password", false);
+        //     }
+        //   });
+        // });
+
+        // Strategy only for test@sirena.app
+        if (username !== "test@sirena.app") return done("Invalid email", false);
+        if (password === "test") {
+          User.findOne({ email: username }, (err, user) => {
             if (err) throw err;
-            if (result === true) {
-              return done(null, user);
-            } else {
-              return done("Wrong Password", false);
-            }
+            return done(null, user);
           });
-        });
+        } else {
+          return done("Wrong Password", false);
+        }
       }
     )
   );
