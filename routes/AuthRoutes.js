@@ -1,9 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-
+const User = require("../models/User");
 const app = express();
-app.post("/auth/login", (req, res, next) => {
+app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       res.status(200).json({ ok: false, msg: err });
@@ -20,14 +20,14 @@ app.post("/auth/login", (req, res, next) => {
   })(req, res, next);
 });
 
-app.get("/auth/isauth", (req, res) => {
+app.get("/isauth", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ auth: true, user: req.user, message: "User is Authenticated" });
   } else {
     res.json({ auth: false, message: "User is not Authenticated" });
   }
 });
-app.post("/auth/logout", (req, res) => {
+app.post("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy();
     res.json({ auth: false, message: "User is not Authenticated" });

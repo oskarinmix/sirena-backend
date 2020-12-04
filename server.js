@@ -9,7 +9,6 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 // Import Files
 const { dbConnection } = require("./database/config");
-const User = require("./models/User");
 
 // Create Server
 const app = express();
@@ -40,10 +39,13 @@ dbConnection();
 
 // Auth Routes
 const AuthRoutes = require("./routes/AuthRoutes");
-app.use("/", AuthRoutes);
+app.use("/auth", AuthRoutes);
 // Mail Routes
 const MailRoutes = require("./routes/MailRoutes");
 app.use("/mails", MailRoutes);
+// Search Routes
+const SearchRoutes = require("./routes/SearchRoutes");
+app.use("/search", SearchRoutes);
 
 // Running Server
 app.listen(process.env.PORT, () =>
