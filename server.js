@@ -6,8 +6,8 @@ const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose')
+const MongoStore = require("connect-mongo")(session);
+const mongoose = require("mongoose");
 // Import Files
 const { dbConnection } = require("./database/config");
 
@@ -29,7 +29,7 @@ app.use(
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({mongooseConnection : mongoose.connection})
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());
