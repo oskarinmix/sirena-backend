@@ -18,7 +18,7 @@ const app = express();
 
 var store = new MongoDBStore({
   uri: process.env.DATABASE_MONGO,
-  collection: 'mySessions'
+  collection: "mySessions",
 });
 // Middlewwares
 app.use(bodyParser.json());
@@ -29,17 +29,20 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser("thesecretcode"));
-app.enable('trust proxy'); 
+app.use(cookieParser());
+app.enable("trust proxy");
 
 app.use(
   session({
     secret: "thesecretcode",
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-    proxy: true, 
-
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
+    cookie: {
+      secure: true,
+      maxAge: 3600000,
+      store: store,
+    },
   })
 );
 app.use(passport.initialize());
