@@ -14,6 +14,8 @@ const { dbConnection } = require("./database/config");
 // Create Server
 const app = express();
 
+// Database Connection
+dbConnection();
 // session
 
 var store = new MongoDBStore({
@@ -37,18 +39,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie: {
-      secure: true,
-      maxAge: 12 * 60 * 60,
-    },
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passport/passportConfig")(passport);
-
-// Database Connection
-dbConnection();
 
 // Auth Routes
 const AuthRoutes = require("./routes/AuthRoutes");
