@@ -31,14 +31,15 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser("thesecretcode"));
-
+app.use(cookieParser());
+app.enable('trust proxy');
 app.use(
   session({
     secret: "thesecretcode",
     resave: false,
     saveUninitialized: false,
     store: store,
+    proxy: true,
   })
 );
 app.use(passport.initialize());
