@@ -30,12 +30,16 @@ app.use(
   })
 );
 app.use(cookieParser("thesecretcode"));
+app.enable('trust proxy'); 
+
 app.use(
   session({
     secret: "thesecretcode",
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
+    proxy: true, 
+
   })
 );
 app.use(passport.initialize());
