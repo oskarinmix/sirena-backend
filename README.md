@@ -1,4 +1,4 @@
-# Sirena Backend
+# SIRENA MAIL CLIENT
 
 ## DESCRIPTION
 
@@ -60,3 +60,10 @@ Run the commmand `npm install` install all the modules necesaries to run the pro
 Run the command `npm start` it starts the server
 
 Running this both commands the backend is ready and running.
+
+
+## THE CLIENT  
+
+The Client project is on  `https://github.com/oskarinmix/sirena-mail-client`
+
+Running at `https://sirena-mail-client.vercel.app/`
