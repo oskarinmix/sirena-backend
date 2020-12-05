@@ -6,14 +6,20 @@ const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const MongoStore = require("connect-mongo")(session);
-const mongoose = require("mongoose");
+const MongoDBStore = require("connect-mongodb-session")(session);
+// const mongoose = require("mongoose");
 // Import Files
 const { dbConnection } = require("./database/config");
 
 // Create Server
 const app = express();
 
+// session
+
+var store = new MongoDBStore({
+  uri: process.env.DATABASE_MONGO,
+  collection: 'mySessions'
+});
 // Middlewwares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,13 +29,13 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser("secretcode"));
+app.use(cookieParser("thesecretcode"));
 app.use(
   session({
-    secret: "secretcode",
+    secret: "thesecretcode",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: store
   })
 );
 app.use(passport.initialize());
