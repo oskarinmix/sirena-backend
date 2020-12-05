@@ -29,19 +29,17 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser());
-app.enable("trust proxy");
+app.use(cookieParser("thesecretcode"));
 
 app.use(
   session({
     secret: "thesecretcode",
-    resave: true,
-    saveUninitialized: true,
-    proxy: true,
+    resave: false,
+    saveUninitialized: false,
+    store: store,
     cookie: {
       secure: true,
-      maxAge: 3600000,
-      store: store,
+      maxAge: 12 * 60 * 60,
     },
   })
 );
