@@ -1,5 +1,5 @@
 const express = require("express");
-const { isUserAuth } = require("../middlewares/Authentication");
+const isUserAuth = require("../middlewares/Authentication");
 const Mail = require("../models/Mail");
 
 const app = express();

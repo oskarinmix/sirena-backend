@@ -1,6 +1,5 @@
-exports.isUserAuth = function (req, res, next) {
-  var auth = req.isAuthenticated();
-  if (auth) {
+const isUserAuth = function (req, res, next) {
+  if (req.isAuthenticated() && req.user) {
     next();
   } else {
     return res.status(401).json({
@@ -9,3 +8,5 @@ exports.isUserAuth = function (req, res, next) {
     });
   }
 };
+
+module.exports = isUserAuth;

@@ -32,14 +32,15 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.enable('trust proxy');
+app.enable("trust proxy");
 app.use(
   session({
     secret: "thesecretcode",
     resave: false,
     saveUninitialized: false,
-    store: store,
     proxy: true,
+    store: store,
+    cookie: { maxAge: 24 * 60 * 60 * 1000, secure: true },
   })
 );
 app.use(passport.initialize());
