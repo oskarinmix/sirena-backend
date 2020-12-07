@@ -4,7 +4,7 @@ const Mail = require("../models/Mail");
 
 const app = express();
 // get the mails by pagination = 20
-app.get("/", (req, res, next) => {
+app.get("/", isUserAuth, (req, res, next) => {
   var page = req.query.page || 1;
   var jump = Number(page - 1) * 20;
 
