@@ -1,6 +1,6 @@
 const isUserAuth = function (req, res, next) {
   if (req.isAuthenticated() && req.user) {
-    next();
+    return next();
   } else {
     return res.status(401).json({
       ok: false,
