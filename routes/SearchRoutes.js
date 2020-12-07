@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const Search = require("../models/Search");
-const { isUserAuth } = require("../middlewares/Authentication");
+const  isUserAuth = require("../middlewares/Authentication");
 // SAVE A NEW SEARCH
 
 app.post("/", isUserAuth, (req, res) => {
