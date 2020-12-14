@@ -21,7 +21,7 @@ app.post("/login", (req, res, next) => {
 });
 
 app.get("/isauth", (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() && req.user) {
     res.json({ auth: true, user: req.user, message: "User is Authenticated" });
   } else {
     res.json({ auth: false, message: "User is not Authenticated" });
@@ -30,6 +30,7 @@ app.get("/isauth", (req, res) => {
 app.post("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy();
+    req.logOut();
     res.json({ auth: false, message: "User is not Authenticated" });
   }
 });
