@@ -3,9 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const bodyParser = require("body-parser");
 const MongoDBStore = require("connect-mongodb-session")(session);
 // const mongoose = require("mongoose");
 // Import Files
@@ -23,24 +21,21 @@ var store = new MongoDBStore({
   collection: "mySessions",
 });
 // Middlewwares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     origin: process.env.CLIENT_ADDRESS || "http://localhost:3000", // <- location of the client
     credentials: true,
   })
 );
-app.use(cookieParser());
-app.enable("trust proxy");
 app.use(
   session({
     secret: "thesecretcode",
     resave: false,
-    saveUninitialized: false,
-    proxy: true,
+    saveUninitialized: true,
     store: store,
-    cookie: { maxAge: 24 * 60 * 60 * 1000, secure: true },
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
   })
 );
 app.use(passport.initialize());
